@@ -264,3 +264,92 @@ module.exports = {
 }
 ```
 
+### Es6语法转换
+
+1. babel-loader：与 Webpack 协同工作的模块，加载处理 js 文件；
+
+2. @babel/core：Babel 编译器的核心模块，是 babel-loader 依赖； 
+
+3. @babel/preset-env：Babel 预置器，用于分析 ES6 语法； 
+
+   `npm i babel-loader @babel/core @babel/preset-env -D`
+
+```js
+			{
+                test:/\.js$/,
+                loader:'babel-loader',
+                options:{
+                    presets:[
+                        '@babel/preset-env'
+                    ],
+                    plugins:[
+                        '@babel/plugin-proposal-class-properties'
+                    ]
+                }
+            }
+            
+            //配置文件里面
+            "@babel/core": "^7.9.6",
+    		"@babel/plugin-proposal-class-properties": "^7.8.3",
+    		"@babel/preset-env": "^7.9.6",
+    		"babel-loader": "^8.1.0"
+```
+
+### Eslint语法检查模块
+
+1. eslint：JS 代码检查工具核心模块；
+2.  eslint-loader：webpack 协同模块；
+
+```js
+npm i eslint -D //安装 eslint
+npx eslint --init //安装配置信息
+//安装
+npm i eslint-loader -D
+```
+
+```js
+//webpack.config.js；
+{
+test : /\.js$/,
+loader: 'eslint-loader',
+//编译前执行
+enforce: 'pre',
+//不检查的目录
+exclude: /node_modules/
+},
+```
+
+### 多页面配置打包
+
+主要针对HtmlWebpackPlugin来配置
+
+```js
+entry: {
+        index: './src/js/index.js',
+        main:'./src/js/main.js'
+    },
+    // 出口文件
+    output: {
+        filename: 'js/[name].js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            // template: "src/index.html",//源文件
+            template: './src/index.html',
+            title: '这是打包后的html',
+            filename: 'index.html',
+            chunks:['index','main']//需要映入的JS
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            title: '这是main页面',
+            filename: 'main.html',
+            chunks: ['main']
+        }),
+        new MiniCssExtractPlugin({
+            filename: './css/[name].css'
+        })
+    ],
+```
+

@@ -16,8 +16,14 @@
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.6",
     "autoprefixer": "^9.7.6",
+    "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
+    "eslint": "^7.2.0",
+    "eslint-loader": "^4.0.2",
     "file-loader": "^6.0.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
@@ -25,7 +31,6 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "url-loader": "^4.1.0",
-    "webpack-dev-server": "^3.10.3",
-    "babel-loader": "^8.1.0"
+    "webpack-dev-server": "^3.10.3"
   }
 }

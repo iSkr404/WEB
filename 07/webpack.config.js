@@ -7,7 +7,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
     // 入口文件
     entry: {
-        app: './src/js/index.js'
+        app: './src/js/index.js',
+        main:'./src/js/main.js'
     },
     // 出口文件
     output: {
@@ -59,27 +60,48 @@ module.exports = {
             },
             // 加载数据处理
             {
-                test: /\.(csv|tsv)/,
-                use: [
-                    'csv-loader'
-                ]
-            },
-            {
                 test: /\.xml$/,
                 use: [
                     'xml-loader'
+                ]
+            },
+            {
+                test: /\.(csv|tsv)/,
+                use: [
+                    'csv-loader'
                 ]
             },
             // 当在html内容里面添加图片是需要配置
             {
                 test: /\.html$/,
                 use: 'html-loader'
-            }
+            },
+            // js文件处理
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        '@babel/preset-env'
+                    ],
+                    plugins: [
+                        '@babel/plugin-proposal-class-properties'
+                    ]
+                }
+            },
+            // 校验代码
+            {
+                test: /\.js$/,
+                loader: 'eslint-loader',
+                //编译前执行
+                enforce: 'pre',
+                //不检查的目录
+                exclude: /node_modules/
+            },
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
-            // template: "src/index.html",//源文件
             template: 'src/index.html',
             title: '这是打包后的html',
             filename: 'index.html'
