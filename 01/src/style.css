@@ -1,4 +1,9 @@
 .box{
     color: red;
     background: url('./1+x.png');
+    font-family: 'myFont';
+}
+@font-face{
+    font-family: "myFont";
+    src: url('./FZFWTongQPOPTJW.TTF');
 }

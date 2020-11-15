@@ -1,0 +1,12 @@
+@font-face{
+    font-family: 'myFont';
+    src: url(../font/FZFWTongQPOPTJW.TTF);
+}
+:root{
+    --green:green;
+}
+.dc{
+    display: flex;
+    transform: rotateY(130deg);
+    color: var(--green);
+}

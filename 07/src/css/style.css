@@ -1,0 +1,19 @@
+@import './font.css';
+.box{
+    font-family: "myFont";
+    color: slategrey;
+    background: url('../img/1+x.png');
+}
+:root{
+    --green:green;
+}
+.main{
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main div{
+    color: var(--green);
+}

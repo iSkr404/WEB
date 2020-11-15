@@ -1,0 +1,11 @@
+@font-face{
+    font-family: 'myFont';
+    src: url(../font/FZFWTongQPOPTJW.TTF);
+}
+.box{
+    font-family: "myFont";
+    color: slategrey;
+    background: url(../img/1+x.png);
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvY3NzL2ZvbnQuY3NzIiwid2VicGFjazovLy8uL3NyYy9jc3Mvc3R5bGUuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBLEM7QUNIQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLEMiLCJmaWxlIjoiLi9jc3MvYXBwLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBmb250LWZhY2V7XHJcbiAgICBmb250LWZhbWlseTogJ215Rm9udCc7XHJcbiAgICBzcmM6IHVybCguLi9mb250L0ZaRldUb25nUVBPUFRKVy5UVEYpO1xyXG59IiwiLmJveHtcclxuICAgIGZvbnQtZmFtaWx5OiBcIm15Rm9udFwiO1xyXG4gICAgY29sb3I6IHNsYXRlZ3JleTtcclxuICAgIGJhY2tncm91bmQ6IHVybCguLi9pbWcvMSt4LnBuZyk7XHJcbn0iXSwic291cmNlUm9vdCI6IiJ9*/

@@ -1,0 +1,6 @@
+@import './font.css';
+.box{
+    font-family: "myFont";
+    color: slategrey;
+    background: url('../img/1+x.png');
+}
