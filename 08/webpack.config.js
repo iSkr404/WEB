@@ -4,11 +4,13 @@ const path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 // css
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// 压缩CSS
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 module.exports = {
     // 入口文件
     entry: {
         index: './src/js/index.js',
-        main:'./src/js/main.js'
+        main: './src/js/main.js'
     },
     // 出口文件
     output: {
@@ -84,7 +86,11 @@ module.exports = {
             template: './src/index.html',
             title: '这是打包后的html',
             filename: 'index.html',
-            chunks:['index','main']
+            chunks: ['index', 'main'],
+            minify: {
+                collapseWhitespace: true, //是否去除空格，默认 false
+                removeComments: false, //是否移除注释 默认 false
+            },
         }),
         new HtmlWebpackPlugin({
             template: './src/index.html',
@@ -94,10 +100,22 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: './css/[name].css'
-        })
+        }),
+        new OptimizeCssAssetsWebpackPlugin()
     ],
+    //文件监听，默认 false
+    watch: true,
+    //开启 watch，下面才有意义
+    watchOptions: {
+        //不监听解析模块目录
+        ignored: /node_modules/,
+        //防止更新频率太快，默认 300 毫秒，意味监听到变化后 500 毫秒再编译
+        aggregateTimeout: 500,
+        //轮询间隔时间，1 秒，询问系统指定文件是否变化了
+        poll: 1000
+    },
     // 准确定位错误
     devtool: 'inline-source-map',
     // 生成模式 3.0 不兼容
-    mode: 'development'
+    mode: "production"
 }

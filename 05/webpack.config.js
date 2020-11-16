@@ -83,7 +83,25 @@ module.exports = {
         })
     ],
     // 准确定位错误
-    devtool: 'inline-source-map'
+    devtool: 'inline-source-map',
     // 生成模式 3.0 不兼容
     // mode:'development'
+    devServer:{
+        port:'3000',
+        stats : 'minimal',
+        // 设置代理
+        proxy:{
+            // 匹配前缀为/api
+            '/api':{
+                // 目标域名ip
+                target:'https://cdn.ycku.com/',
+                // 改变源
+                changeOrigin:true,
+                // 重写url,去掉api
+                pathRewrite:{
+                    '/api':''
+                }
+            }
+        }
+    }
 }

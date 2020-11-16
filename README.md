@@ -3,6 +3,7 @@
 1. 定义：Webpack是一个现代Javascript的静态模块打包器（module bundler）、前端自动化构建工具，基于Node.js开发。
 2. 解决的问题：解决了模板依赖（引入静态资源的合并、打包压缩、混淆问题等问题）和兼容性。
 3. 如果不使用自动化构建工具会遇到：网页加载速度慢和要处理很多包之间的依赖关系。
+4. webpack是一个可以帮我们打包的工具。打包就是我们将前端引用的很多CSS，js、还有图片等文件，全部写进一个js里面。而不是在一个HTML页面里通过link、script标签引用。使用webpack打包之后，可以将所有的静态资源都合并好，减少了请求的次数。还可以重新编译，将浏览器不识别的语言编译成浏览器可识别的语言。
 
 ## 二、Webpack的安装
 
@@ -351,5 +352,78 @@ entry: {
             filename: './css/[name].css'
         })
     ],
+```
+
+### 压缩HTML和CSS
+
+```js
+mode:'production'//生产版本
+
+
+//如果在开发环境中压缩，可以通过配置来设置要压缩的选项：
+minify: {
+collapseWhitespace: true, //是否去除空格，默认 false
+removeComments: true, //是否移除注释 默认 false
+},
+
+
+npm i optimize-css-assets-webpack-plugin -D
+//获取 css 压缩插件
+const OptimizeCssAssetsWebpackPlugin =
+require('optimize-css-assets-webpack-plugin')
+//插件
+plugins: [
+new OptimizeCssAssetsWebpackPlugin(), //压缩 css
+],
+```
+
+### watch监听和clean清理
+
+```js
+//文件监听，默认 false
+    watch: true,
+    //开启 watch，下面才有意义
+    watchOptions: {
+        //不监听解析模块目录
+        ignored: /node_modules/,
+        //防止更新频率太快，默认 300 毫秒，意味监听到变化后 500 毫秒再编译
+        aggregateTimeout: 500,
+        //轮询间隔时间，1 秒，询问系统指定文件是否变化了
+        poll: 1000
+    },
+```
+
+```js
+npm i clean-webpack-plugin -D
+
+//获取 clean 清理插件
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+//插件
+plugins: [
+new CleanWebpackPlugin()
+]
+```
+
+### 设置AXIOS跨域
+
+```js
+ devServer:{
+        port:'3000',
+        stats : 'minimal',
+        // 设置代理
+        proxy:{
+            // 匹配前缀为/api
+            '/api':{
+                // 目标域名ip
+                target:'https://cdn.ycku.com/',
+                // 改变源
+                changeOrigin:true,
+                // 重写url,去掉api
+                pathRewrite:{
+                    '/api':''
+                }
+            }
+        }
+    }
 ```
 

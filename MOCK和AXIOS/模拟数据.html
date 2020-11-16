@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/Mock.js/1.0.0/mock.js"></script>
+    <script>
+        const data = Mock.mock({
+            // 属性list的值是一个数组，其中含有1-10个元素
+            'list|1-10': [{
+                // 属性id的一个自增数，起始值为1，每次增1
+                // 'id|+1':1
+                name: '@cname -- @city'
+            }]
+        })
+        console.log(data);
+        console.log(JSON.stringify(data));
+
+        console.log(Mock.mock('@cname'));
+        console.log(Mock.Random.cname());
+        console.log(Mock);
+        //随机颜色，十六进制
+        console.log(Mock.mock('@color'));
+        //随机图片，给你一个图片地址
+        console.log(Mock.mock('@image'));
+        //随机 ip 地址
+        console.log(Mock.mock('@ip'));
+        //随机 url 地址
+        console.log(Mock.mock('@url'));
+        //随机字符串
+        console.log(Mock.mock('@string'));
+        //随机数值
+        console.log(Mock.mock('@integer'));
+        //随机日期
+        console.log(Mock.mock('@datetime'));
+
+        // 自行扩展，各种商店名称
+        Mock.Random.extend({
+            cstore() {
+                return this.pick([
+                    '宠物店',
+                    '美容店',
+                    '小吃店',
+                    '数码店',
+                    '快餐店'
+                ])
+            }
+        })
+        // 使用拓展
+        console.log(Mock.Random.cstore());
+
+
+        // 模拟数据跟切合实际随机模拟数据
+        Mock.Random.extend({
+            industry(min, max) {
+                const data = ["financial", "bes", "it", "agriculture", "estate", "medical"];
+                let arr = [];
+                if (min && max) {//随机范围
+                    const ranNum = Math.floor(Math.random() * (max - min)) + min;
+                    for (let i = 0; i < ranNum; i++) {
+                        arr.push(this.pick(data));
+                    }
+                    return arr;
+                } else if (min) { //必须多少
+                    for (let i = 0; i < min; i++) {
+                        arr.push(this.pick(data));
+                    }
+                    return arr;
+                }
+                const str=this.pick(data);
+                arr.push(str);
+                return arr;
+            }
+        });
+        console.log(Mock.Random.industry(1,4));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

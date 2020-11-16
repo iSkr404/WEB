@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/Mock.js/1.0.0/mock.js"></script>
+</head>
+
+<body>
+    <script>
+        // axios.get('https://cdn.liyanhui.com/data.json').then(res=>{
+        //     console.log(res);
+        // })
+
+        // axios({
+        //     method: 'get',
+        //     url: 'https://cdn.liyanhui.com/data.json',
+        //     params: {
+        //         id: 1,
+        //     }
+        // }).then(res => {
+        //     console.log(res);
+        // })
+
+        // axios({
+        //     url: 'https://cdn.liyanhui.com/data.json',
+        //     params: {
+        //         id: 1
+        //     },
+        //     data: '异步1'
+        // }).then(res => {
+        //     console.log('1.异步');
+        // });
+        // axios({
+        //     url: 'https://cdn.liyanhui.com/data.json',
+        //     params: {
+        //         id: 1
+        //     },
+        //     data: '异步2'
+        // }).then(res => {
+        //     console.log('2.异步');
+        // });
+        // axios({
+        //     url: 'https://cdn.liyanhui.com/data.json',
+        //     params: {
+        //         id: 1
+        //     },
+        //     data: '异步3'
+        // }).then(res => {
+        //     console.log('3.异步');
+        // })
+        // 火狐:会根据请求时间来执行最终结果
+        // 谷歌:好像就是等待执行有点像axios.all
+
+        // 抽离全局的url
+        // axios.defaults.baseURL = 'https://cdn.liyanhui.com';
+
+        // axios.all([
+        //     axios({
+        //         url: '/data.json',
+        //         params: {
+        //             id: 1
+        //         },
+        //         data: '异步1'
+        //     }),
+        //     axios({
+        //         url: '/data.json',
+        //         params: {
+        //             id: 1
+        //         },
+        //         data: '异步2'
+        //     }),
+        //     axios({
+        //         url: '/data.json',
+        //         params: {
+        //             id: 1
+        //         },
+        //         data: '异步3'
+        //     })
+        // ]).then(axios.spread((res1, res2, res3) => {
+        //     console.log(res1.config.data);
+        //     console.log(res2.config.data);
+        //     console.log(res3.config.data);
+        // }))
+
+        // 实例化  对象具有独立不被干扰
+
+        var myAsiox = axios.create(
+            // 里面传的就是默认参数
+            // baseURL:'https://cdn.liyanhui.com';
+        );
+        myAsiox.defaults.baseURL = 'https://cdn.liyanhui.com';
+
+        // 请求拦截
+        myAsiox.interceptors.request.use(config => {
+            console.log('loading...');
+            return config;
+        });
+
+        myAsiox.interceptors.response.use(res => {
+
+            return res.data;
+        })
+
+
+        myAsiox.request({
+            method: 'get',
+            url: '/data.json'
+        }).then(res => {
+            console.log(res);
+        })
+        // mock对axios进行拦截   正常上线之后删除注释即可
+        Mock.mock('https://cdn.liyanhui.com/data.json', {
+            'list|1-10': [{
+                'id|+1': 1,
+                'username': '@cname',
+                'email': '@email',
+                'price': '@integer'
+            }]
+        })
+
+    </script>
+</body>
+
+</html>
